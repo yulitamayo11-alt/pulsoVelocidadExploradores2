@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exploradores Velocity Pulse Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <script>
+    function appState() {
+      // Datos consolidados, anonimizados y estructurados de los sprints 51, 52 y 53 del equipo Exploradores.
+      // Se eliminaron nombres, correos e identificadores personales. La información se muestra únicamente como pulso colectivo.
+      const defaultIteraciones = [
+        {
+                "id": "i51",
+                "name": "Sprint 51",
+                "period": "Sprint 51",
+                "responses": [
+                        {
+                                "id": 1,
+                                "anonymousName": "Colaborador Anónimo #1",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Curva de aprendizaje"
+                                ],
+                                "observation": "Muchas veces se hace solo Historias habilitadoras, y no se ve ante negocio cuando a veces se puede hacer junto con la HU que se pide es solo que se divide front y back y se puede, pero tambien se podria apuntar a en que en la misma iteracion se entreguen las dos cosas y cada desarrollador trabajar una por su lado"
+                        },
+                        {
+                                "id": 2,
+                                "anonymousName": "Colaborador Anónimo #2",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Curva de aprendizaje"
+                                ],
+                                "observation": "Todo con normalidad"
+                        },
+                        {
+                                "id": 3,
+                                "anonymousName": "Colaborador Anónimo #3",
+                                "speed": "Alta",
+                                "factors": [
+                                        "Cambios de alcance",
+                                        "Dependencias externas",
+                                        "Movimiento de personas clave"
+                                ],
+                                "observation": "Fue un sprint satisfactorio, se cerarron varias hus se hicieron varios despliegues considero que todos cumplieron muy bien el objetivo."
+                        },
+                        {
+                                "id": 4,
+                                "anonymousName": "Colaborador Anónimo #4",
+                                "speed": "Alta",
+                                "factors": [
+                                        "Movimiento de personas clave",
+                                        "Muchas reuniones"
+                                ],
+                                "observation": "Hubo buena velocidad, a pesar de que ingresaron personas nuevas al equipo, la velocidad de certificación permitió realizar varios despliegues en producción"
+                        },
+                        {
+                                "id": 5,
+                                "anonymousName": "Colaborador Anónimo #5",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Movimiento de personas clave",
+                                        "Historias poco claras",
+                                        "Ausencias",
+                                        "Dependencias externas"
+                                ],
+                                "observation": "n/a"
+                        },
+                        {
+                                "id": 6,
+                                "anonymousName": "Colaborador Anónimo #6",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Movimiento de personas clave",
+                                        "Ausencias"
+                                ],
+                                "observation": "Creo q este equipo tiene un muy buen ritmo, las opciones q puse son porq las otras hacian menos sentido a mi percepción."
+                        },
+                        {
+                                "id": 7,
+                                "anonymousName": "Colaborador Anónimo #7",
+                                "speed": "Alta",
+                                "factors": [
+                                        "Curva de aprendizaje"
+                                ],
+                                "observation": "La dinámica del equipo y manejo de historias de usuario es buena y permite mantener una alta velocidad en desarrollo y pruebas."
+                        },
+                        {
+                                "id": 8,
+                                "anonymousName": "Colaborador Anónimo #8",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Ausencias"
+                                ],
+                                "observation": "Sprint correcto, habilitadoras preparando entrega de valor en el nuevo sprint"
+                        }
+                ]
+        },
+        {
+                "id": "i52",
+                "name": "Sprint 52",
+                "period": "Sprint 52",
+                "responses": [
+                        {
+                                "id": 1,
+                                "anonymousName": "Colaborador Anónimo #1",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Movimiento de personas clave"
+                                ],
+                                "observation": "todo normal"
+                        },
+                        {
+                                "id": 2,
+                                "anonymousName": "Colaborador Anónimo #2",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Historias poco claras",
+                                        "Ausencias",
+                                        "Curva de aprendizaje"
+                                ],
+                                "observation": "En ocasiones algunos de los integrantes participan poco en las sesiones o solo lo hacen cuando se encuentra el LT y este da su opinión o inicia los temas de conversación."
+                        },
+                        {
+                                "id": 3,
+                                "anonymousName": "Colaborador Anónimo #3",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Movimiento de personas clave"
+                                ],
+                                "observation": "na"
+                        },
+                        {
+                                "id": 4,
+                                "anonymousName": "Colaborador Anónimo #4",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Historias poco claras",
+                                        "Ausencias",
+                                        "Curva de aprendizaje",
+                                        "Muchas reuniones"
+                                ],
+                                "observation": "n/a"
+                        },
+                        {
+                                "id": 5,
+                                "anonymousName": "Colaborador Anónimo #5",
+                                "speed": "Alta",
+                                "factors": [
+                                        "Ausencias"
+                                ],
+                                "observation": "Se hizo un buen trabajo en el sprint y se manifestaron las alertas en el review que fueron las que impactaron directamente."
+                        }
+                ]
+        },
+        {
+                "id": "i53",
+                "name": "Sprint 53",
+                "period": "Sprint 53",
+                "responses": [
+                        {
+                                "id": 1,
+                                "anonymousName": "Colaborador Anónimo #1",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Ninguno"
+                                ],
+                                "observation": "El equipo tiene un bueno manejo del tiempo"
+                        },
+                        {
+                                "id": 2,
+                                "anonymousName": "Colaborador Anónimo #2",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Dependencias externas"
+                                ],
+                                "observation": "todo normal"
+                        },
+                        {
+                                "id": 3,
+                                "anonymousName": "Colaborador Anónimo #3",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Fallas en pruebas"
+                                ],
+                                "observation": "Ninguna."
+                        },
+                        {
+                                "id": 4,
+                                "anonymousName": "Colaborador Anónimo #4",
+                                "speed": "Alta",
+                                "factors": [
+                                        "Cambios de alcance",
+                                        "Curva de aprendizaje",
+                                        "Dependencias externas"
+                                ],
+                                "observation": "Fue un buen sprint se fueron ajustando las historias durante el sprint ya que se requería por la parte técnica que se está construyendo."
+                        },
+                        {
+                                "id": 5,
+                                "anonymousName": "Colaborador Anónimo #5",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Curva de aprendizaje"
+                                ],
+                                "observation": "Creo q el ritmo es el adecuado!"
+                        },
+                        {
+                                "id": 6,
+                                "anonymousName": "Colaborador Anónimo #6",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Apoyo parcial / sin criterio objetivo"
+                                ],
+                                "observation": "estoy de apoyo y no de lleno con el equipo, no tengo una opinión objetiva"
+                        },
+                        {
+                                "id": 7,
+                                "anonymousName": "Colaborador Anónimo #7",
+                                "speed": "Adecuada",
+                                "factors": [
+                                        "Movimiento de personas clave",
+                                        "Bloqueos técnicos"
+                                ],
+                                "observation": "Hubo retrasos con errores de los pipelines para desplegar en test\nUn permiso faltante de azure key vault ocasionó retraso en despliegue de componentes a producción"
+                        },
+                        {
+                                "id": 8,
+                                "anonymousName": "Colaborador Anónimo #8",
+                                "speed": "Alta",
+                                "factors": [
+                                        "Fallas en producción",
+                                        "Muchas reuniones"
+                                ],
+                                "observation": "N/A"
+                        }
+                ]
+        }
+];
+
+      return {
+        iteracionData: [],
+        defaultIteraciones: defaultIteraciones,
+        selectedIteracion: 'all',
+        selectedSpeedFilter: 'all',
+        selectedSentimentFilter: 'all',
+        searchTerm: '',
+        activeTab: 'dashboard',
+        selectedResponse: null,
+        showUploadModal: false,
+        newIteracionName: '',
+        newIteracionPeriod: '',
+        uploadError: '',
+        rawCSVText: '',
+        dragOver: false,
+        uploadedFileName: '',
+        filteredResponses: [],
+        iteracionTrends: [],
+        keyComments: [],
+        stats: {
+          total: 0, alta: 0, adecuada: 0, baja: 0,
+          altaPercent: 0, adecuadaPercent: 0, bajaPercent: 0,
+          factors: []
+        },
+        commentStats: {
+          positive: 0, negative: 0, neutral: 0, none: 0,
+          totalWithComments: 0, posPercent: 0, negPercent: 0, neuPercent: 0
+        },
+
+        normalizeSprintLabels(items) {
+          return (items || []).map(item => ({
+            ...item,
+            name: (item.name || '').replace(/Iteración/gi, 'Sprint'),
+            period: (item.period || '').replace(/Iteración/gi, 'Sprint')
+          }));
+        },
+
+        init() {
+          this.loadIteraciones();
+        },
+
+        loadIteraciones() {
+          const savedCustom = localStorage.getItem('exploradores_custom_sprints_github_v1');
+          let customIteraciones = [];
+          if (savedCustom) {
+            try { customIteraciones = JSON.parse(savedCustom); }
+            catch (e) { console.error('Error cargando sprints personalizados', e); }
+          }
+          this.iteracionData = this.normalizeSprintLabels([...this.defaultIteraciones, ...customIteraciones]);
+          this.calculateStats();
+          this.calculateTrends();
+        },
+
+        resetToDefaults() {
+          if (confirm('¿Estás seguro de eliminar los sprints cargados y regresar a los datos iniciales de Exploradores?')) {
+            localStorage.removeItem('exploradores_custom_sprints_github_v1');
+            this.selectedIteracion = 'all';
+            this.selectedSpeedFilter = 'all';
+            this.selectedSentimentFilter = 'all';
+            this.searchTerm = '';
+            this.loadIteraciones();
+          }
+        },
+
+        isEmptyComment(text) {
+          if (!text || text.trim() === '') return true;
+          const cleanText = text.toLowerCase().trim();
+          const emptyResponses = ['na', 'n/a', 'none', 'ninguna', 'ninguna.', 'ninguna observación adicional.', 'ninguna observación.', 'sin observaciones', 'ninguno'];
+          return emptyResponses.includes(cleanText);
+        },
+
+        getCommentSentiment(text) {
+          if (this.isEmptyComment(text)) return 'none';
+          const cleanText = text.toLowerCase().trim();
+
+          const positiveWords = [
+            'bien', 'bueno', 'buena', 'buen', 'excelente', 'adecuado', 'adecuada', 'satisfactorio', 'correcto',
+            'normalidad', 'normal', 'cumplieron', 'cumplió', 'velocidad', 'alto', 'alta', 'ritmo', 'permitió',
+            'trabajo', 'despliegues', 'valor', 'objetivo', 'manejo del tiempo', 'dinámica'
+          ];
+          const negativeWords = [
+            'retraso', 'retrasos', 'errores', 'error', 'fallas', 'faltante', 'impactaron', 'poco', 'solo',
+            'bloqueos', 'dependencias', 'ausencias', 'alertas', 'participan poco', 'no tengo una opinión objetiva',
+            'no de lleno', 'poco claras', 'demoras', 'freno', 'dificultad'
+          ];
+
+          let posScore = 0;
+          let negScore = 0;
+          positiveWords.forEach(word => { if (cleanText.includes(word)) posScore++; });
+          negativeWords.forEach(word => { if (cleanText.includes(word)) negScore++; });
+
+          if (posScore > negScore) return 'positive';
+          if (negScore > posScore) return 'negative';
+          return 'neutral';
+        },
+
+        openModal() {
+          const lastIteracion = this.iteracionData[this.iteracionData.length - 1];
+          let nextNumber = 54;
+          if (lastIteracion && lastIteracion.name) {
+            const matches = lastIteracion.name.match(/\d+/);
+            if (matches) nextNumber = parseInt(matches[0]) + 1;
+          }
+          this.newIteracionName = `Sprint ${nextNumber}`;
+          this.newIteracionPeriod = `Sprint ${nextNumber}`;
+          this.uploadError = '';
+          this.rawCSVText = '';
+          this.uploadedFileName = '';
+          this.showUploadModal = true;
+        },
+
+        handleFileSelect(event) {
+          const file = event.target.files[0];
+          if (!file) return;
+          this.processFile(file);
+        },
+
+        handleFileDrop(event) {
+          this.dragOver = false;
+          const file = event.dataTransfer.files[0];
+          if (!file) return;
+          this.processFile(file);
+        },
+
+        processFile(file) {
+          if (!file.name.endsWith('.csv') && !file.name.endsWith('.txt')) {
+            this.uploadError = 'Por favor selecciona únicamente un archivo estructurado CSV (.csv o .txt).';
+            return;
+          }
+          this.uploadedFileName = file.name;
+          this.uploadError = '';
+          const reader = new FileReader();
+          reader.onload = (e) => { this.rawCSVText = e.target.result; };
+          reader.readAsText(file, 'UTF-8');
+        },
+
+        normalizeFactors(rawFactors) {
+          let factorsList = [];
+          if (rawFactors) {
+            factorsList = rawFactors.toString().split(/[;,]/).map(f => f.trim()).filter(f => f !== '');
+          }
+          factorsList = factorsList.filter(f => !['NA', 'Na', 'na', 'N/A', 'n/a', 'Ninguno', 'Ninguna', 'Ningunas'].includes(f));
+          return factorsList.length ? factorsList : ['Ninguno'];
+        },
+
+        normalizeSpeed(rawSpeed) {
+          let speedValue = (rawSpeed || 'Adecuada').toString().trim().toLowerCase();
+          if (speedValue.includes('baja')) return 'Baja';
+          if (speedValue.includes('alta')) return 'Alta';
+          return 'Adecuada';
+        },
+
+        saveIteracion() {
+          if (!this.newIteracionName.trim()) { this.uploadError = 'Por favor escribe el nombre del sprint.'; return; }
+          if (!this.newIteracionPeriod.trim()) { this.uploadError = 'Por favor especifica el sprint o periodo de tiempo.'; return; }
+          if (!this.rawCSVText.trim()) { this.uploadError = 'Por favor selecciona un archivo CSV válido.'; return; }
+
+          try {
+            const parsed = Papa.parse(this.rawCSVText.trim(), { header: true, skipEmptyLines: true, dynamicTyping: true });
+            if (parsed.errors && parsed.errors.length > 0 && parsed.data.length === 0) {
+              throw new Error('El archivo CSV no está formateado correctamente.');
+            }
+            const headers = parsed.meta.fields || [];
+            const speedHeader = headers.find(h => h.toLowerCase().includes('velocidad') || h.toLowerCase().includes('sintió') || h.toLowerCase().includes('speed') || h.toLowerCase().includes('ritmo') || h.toLowerCase().includes('iteración'));
+            const factorsHeader = headers.find(h => h.toLowerCase().includes('factor') || h.toLowerCase().includes('afectaron') || h.toLowerCase().includes('frenos'));
+            const obsHeader = headers.find(h => h.toLowerCase().includes('observaci') || h.toLowerCase().includes('comentario') || h.toLowerCase().includes('opinión'));
+            if (!speedHeader) throw new Error("No se detectó la columna requerida de 'Velocidad'.");
+
+            const responses = parsed.data.map((row, index) => {
+              return {
+                id: index + 1,
+                anonymousName: `Colaborador Anónimo #${index + 1}`,
+                speed: this.normalizeSpeed(row[speedHeader]),
+                factors: this.normalizeFactors(factorsHeader ? row[factorsHeader] : 'Ninguno'),
+                observation: obsHeader ? (row[obsHeader] || '') : ''
+              };
+            });
+
+            const newIteracionObj = {
+              id: 'i' + Date.now(),
+              name: this.newIteracionName,
+              period: this.newIteracionPeriod,
+              responses: responses
+            };
+
+            const savedCustom = localStorage.getItem('exploradores_custom_sprints_github_v1');
+            let customIteraciones = savedCustom ? JSON.parse(savedCustom) : [];
+            customIteraciones.push(newIteracionObj);
+            localStorage.setItem('exploradores_custom_sprints_github_v1', JSON.stringify(customIteraciones));
+            this.loadIteraciones();
+            this.selectedIteracion = newIteracionObj.id;
+            this.calculateStats();
+            this.calculateTrends();
+            this.showUploadModal = false;
+            alert(`¡Éxito! Se cargó el ${this.newIteracionName} de forma anónima con ${responses.length} opiniones.`);
+          } catch (err) {
+            this.uploadError = `Error procesando datos: ${err.message}`;
+          }
+        },
+
+        calculateTrends() {
+          this.iteracionTrends = this.iteracionData.map(iter => {
+            const total = iter.responses.length;
+            const alta = iter.responses.filter(r => r.speed === 'Alta').length;
+            const adecuada = iter.responses.filter(r => r.speed === 'Adecuada').length;
+            const baja = iter.responses.filter(r => r.speed === 'Baja').length;
+            return {
+              id: iter.id,
+              name: iter.name,
+              period: iter.period,
+              total: total,
+              altaPercent: Math.round((alta / total) * 100) || 0,
+              adecuadaPercent: Math.round((adecuada / total) * 100) || 0,
+              bajaPercent: Math.round((baja / total) * 100) || 0,
+              raw: { alta, adecuada, baja }
+            };
+          });
+        },
+
+        calculateStats() {
+          let total = 0, alta = 0, adecuada = 0, baja = 0;
+          const factorCounts = {};
+
+          this.iteracionData.forEach(iter => {
+            if (this.selectedIteracion === 'all' || this.selectedIteracion === iter.id) {
+              iter.responses.forEach(resp => {
+                total++;
+                if (resp.speed === 'Alta') alta++;
+                else if (resp.speed === 'Adecuada') adecuada++;
+                else if (resp.speed === 'Baja') baja++;
+                resp.factors.forEach(f => {
+                  if (f && !['Ninguno', 'Ninguna', 'Ningunas', 'NA', 'N/A'].includes(f)) {
+                    factorCounts[f] = (factorCounts[f] || 0) + 1;
+                  }
+                });
+              });
+            }
+          });
+
+          const sortedFactors = Object.keys(factorCounts).map(name => ({
+            name,
+            count: factorCounts[name],
+            percentage: total > 0 ? Math.round((factorCounts[name] / total) * 100) : 0
+          })).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+
+          this.stats = {
+            total, alta, adecuada, baja,
+            altaPercent: total > 0 ? Math.round((alta / total) * 100) : 0,
+            adecuadaPercent: total > 0 ? Math.round((adecuada / total) * 100) : 0,
+            bajaPercent: total > 0 ? Math.round((baja / total) * 100) : 0,
+            factors: sortedFactors
+          };
+          this.fillFilteredResponses();
+        },
+
+        fillFilteredResponses() {
+          let result = [];
+          this.iteracionData.forEach(iter => {
+            if (this.selectedIteracion === 'all' || this.selectedIteracion === iter.id) {
+              iter.responses.forEach(resp => {
+                result.push({ ...resp, sprintId: iter.id, sprintName: iter.name, period: iter.period });
+              });
+            }
+          });
+
+          result = result.map(r => ({ ...r, sentiment: this.getCommentSentiment(r.observation) }));
+
+          if (this.selectedSpeedFilter !== 'all') {
+            result = result.filter(r => r.speed.toLowerCase() === this.selectedSpeedFilter.toLowerCase());
+          }
+          if (this.selectedSentimentFilter !== 'all') {
+            result = result.filter(r => r.sentiment === this.selectedSentimentFilter);
+          }
+          if (this.searchTerm.trim() !== '') {
+            const term = this.searchTerm.toLowerCase();
+            result = result.filter(r =>
+              (r.observation || '').toLowerCase().includes(term) ||
+              r.factors.some(f => f.toLowerCase().includes(term)) ||
+              r.sprintName.toLowerCase().includes(term)
+            );
+          }
+
+          let pos = 0, neg = 0, neu = 0, none = 0;
+          result.forEach(r => {
+            if (r.sentiment === 'positive') pos++;
+            else if (r.sentiment === 'negative') neg++;
+            else if (r.sentiment === 'neutral') neu++;
+            else none++;
+          });
+          const totalWithComments = pos + neg + neu;
+          this.commentStats = {
+            positive: pos, negative: neg, neutral: neu, none: none,
+            totalWithComments,
+            posPercent: totalWithComments > 0 ? Math.round((pos / totalWithComments) * 100) : 0,
+            negPercent: totalWithComments > 0 ? Math.round((neg / totalWithComments) * 100) : 0,
+            neuPercent: totalWithComments > 0 ? Math.round((neu / totalWithComments) * 100) : 0
+          };
+
+          this.filteredResponses = result;
+          this.keyComments = result
+            .filter(r => !this.isEmptyComment(r.observation))
+            .sort((a, b) => {
+              const weight = { negative: 3, positive: 2, neutral: 1, none: 0 };
+              return (weight[b.sentiment] || 0) - (weight[a.sentiment] || 0);
+            })
+            .slice(0, 4);
+
+          if (this.selectedResponse) {
+            const exists = this.filteredResponses.some(r => r.id === this.selectedResponse.id && r.sprintId === this.selectedResponse.sprintId);
+            if (!exists) this.selectedResponse = null;
+          }
+        }
+      };
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #06b6d4; }
+    .line-clamp-3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+    .line-clamp-4 { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col antialiased selection:bg-cyan-400 selection:text-slate-950">
+  <div x-data="appState()" class="flex flex-col min-h-screen">
+
+    <header class="border-b border-slate-800/80 bg-slate-900/60 backdrop-blur-md sticky top-0 z-50 px-6 py-4">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="h-10 w-10 rounded-lg bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-center text-cyan-300 font-black shadow-inner">E</div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold tracking-widest text-cyan-300 uppercase bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-500/20">EXPLORADORES TEAM</span>
+              <span class="text-xs text-slate-400">• Pulso de Velocidad Anónimo</span>
+            </div>
+            <h1 class="text-xl font-bold text-slate-100 tracking-tight mt-0.5">Diagnóstico Operativo de Sprints</h1>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg p-1 overflow-x-auto max-w-full">
+            <button @click="selectedIteracion = 'all'; calculateStats(); calculateTrends();"
+              :class="selectedIteracion === 'all' ? 'bg-cyan-400 text-slate-950 font-bold shadow' : 'text-slate-400 hover:text-slate-200'"
+              class="px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap">Todas</button>
+            <template x-for="iter in iteracionData" :key="iter.id">
+              <button @click="selectedIteracion = iter.id; calculateStats(); calculateTrends();"
+                :class="selectedIteracion === iter.id ? 'bg-cyan-400 text-slate-950 font-bold shadow' : 'text-slate-400 hover:text-slate-200'"
+                class="px-3 py-1.5 text-xs font-medium rounded-md transition-all whitespace-nowrap" x-text="iter.name"></button>
+            </template>
+          </div>
+
+          <button @click="openModal()"
+            class="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold text-xs px-3.5 py-2.5 rounded-lg transition-all shadow-md flex items-center gap-2 border border-cyan-300/30 hover:scale-105 active:scale-95">
+            <svg class="w-4 h-4 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" /></svg>
+            Cargar Sprint
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="bg-slate-900/30 border-b border-slate-800/40 px-6">
+      <div class="max-w-7xl mx-auto flex items-center justify-between">
+        <nav class="flex gap-1 py-2 overflow-x-auto">
+          <button @click="activeTab = 'dashboard'" :class="activeTab === 'dashboard' ? 'text-cyan-300 bg-slate-900/80 border-b-2 border-cyan-300 rounded-b-none' : 'text-slate-400 hover:text-slate-200'" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 whitespace-nowrap">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+            Vista General
+          </button>
+          <button @click="activeTab = 'responses'" :class="activeTab === 'responses' ? 'text-cyan-300 bg-slate-900/80 border-b-2 border-cyan-300 rounded-b-none' : 'text-slate-400 hover:text-slate-200'" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 whitespace-nowrap">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+            Opiniones Anónimas (<span x-text="filteredResponses.length"></span>)
+          </button>
+          <button @click="activeTab = 'analytics'" :class="activeTab === 'analytics' ? 'text-cyan-300 bg-slate-900/80 border-b-2 border-cyan-300 rounded-b-none' : 'text-slate-400 hover:text-slate-200'" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 whitespace-nowrap">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+            Impedimentos y Fricción
+          </button>
+        </nav>
+
+        <div class="text-xs text-slate-500 hidden md:flex items-center gap-3">
+          <button @click="resetToDefaults()" class="text-rose-400/80 hover:text-rose-400 transition-colors flex items-center gap-1 hover:underline" title="Borrar datos manuales y restaurar predeterminados">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+            Limpiar Memoria
+          </button>
+          <span class="text-slate-700">|</span>
+          <div class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            Estado del Anonimato: <strong class="text-emerald-400 font-extrabold uppercase">100% Protegido</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-6 space-y-6">
+      <div class="p-4 bg-gradient-to-r from-cyan-950/40 via-slate-900/40 to-slate-900/30 border border-cyan-500/20 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-start gap-3">
+          <div class="p-2 bg-cyan-500/10 rounded-lg text-cyan-300 shrink-0 mt-0.5">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-cyan-200">Entorno de Datos Seguros y Anonimizados</h4>
+            <p class="text-xs text-slate-300 mt-0.5 max-w-3xl leading-relaxed">
+              Dashboard adaptado para el equipo <strong>Exploradores</strong> con base en los sprints 51, 52 y 53. No se almacenan ni se visualizan nombres, correos ni identificadores personales; el análisis se presenta como pulso colectivo para mejorar ritmo, claridad y coordinación.
+            </p>
+          </div>
+        </div>
+        <span class="text-[11px] font-semibold text-cyan-300 bg-cyan-950/40 border border-cyan-500/20 px-2 py-1 rounded">Fuente: 3 archivos Excel consolidados</span>
+      </div>
+
+      <div x-show="activeTab === 'dashboard'" class="space-y-6" x-transition>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-5 hover:border-slate-700/80 transition-all shadow-sm">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Opiniones Recibidas</span>
+              <div class="p-1.5 bg-slate-800 rounded-lg text-slate-300"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div>
+            </div>
+            <div class="mt-3 flex items-baseline gap-2"><span class="text-3xl font-extrabold text-slate-100" x-text="stats.total"></span><span class="text-xs text-cyan-300 font-semibold">Reportes Anónimos</span></div>
+            <p class="text-[11px] text-slate-500 mt-1.5" x-text="'Sprints en dashboard: ' + iteracionData.length"></p>
+          </div>
+
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-5 hover:border-slate-700/80 transition-all shadow-sm">
+            <div class="flex items-center justify-between"><span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ritmo Adecuado</span><div class="p-1.5 bg-cyan-500/10 rounded-lg text-cyan-300"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div></div>
+            <div class="mt-3 flex items-baseline gap-2"><span class="text-3xl font-extrabold text-cyan-300" x-text="stats.adecuadaPercent + '%'"></span><span class="text-xs text-slate-400"><span x-text="stats.adecuada"></span> respuestas</span></div>
+            <p class="text-[11px] text-slate-500 mt-1.5">Mayoría de percepción estable</p>
+          </div>
+
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-5 hover:border-slate-700/80 transition-all shadow-sm">
+            <div class="flex items-center justify-between"><span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Ritmo Alto</span><div class="p-1.5 bg-emerald-500/10 rounded-lg text-emerald-400"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg></div></div>
+            <div class="mt-3 flex items-baseline gap-2"><span class="text-3xl font-extrabold text-emerald-400" x-text="stats.altaPercent + '%'"></span><span class="text-xs text-slate-400"><span x-text="stats.alta"></span> respuestas</span></div>
+            <p class="text-[11px] text-emerald-500/80 mt-1.5">Sin reportes de ritmo bajo precargados</p>
+          </div>
+
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-5 hover:border-slate-700/80 transition-all shadow-sm">
+            <div class="flex items-center justify-between"><span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Freno Principal</span><div class="p-1.5 bg-amber-500/10 rounded-lg text-amber-400"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg></div></div>
+            <div class="mt-3 flex items-baseline gap-2"><span class="text-base font-bold text-amber-300 truncate max-w-[190px]" x-text="stats.factors[0] ? stats.factors[0].name : 'N/A'" :title="stats.factors[0] ? stats.factors[0].name : ''"></span></div>
+            <p class="text-[11px] text-slate-500 mt-2">Mencionado en <span x-text="stats.factors[0] ? stats.factors[0].count : 0"></span> reportes</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-6 lg:col-span-2">
+            <div class="flex items-center justify-between mb-6">
+              <div><h3 class="text-base font-bold text-slate-100">Tendencia de Velocidad en Exploradores</h3><p class="text-xs text-slate-400">Distribución de ritmo a lo largo de los sprints analizados</p></div>
+              <span class="text-[11px] font-semibold text-cyan-300 bg-cyan-950/40 border border-cyan-500/20 px-2 py-1 rounded">Comparativa Histórica</span>
+            </div>
+
+            <div class="space-y-6">
+              <template x-for="trend in iteracionTrends" :key="trend.id">
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between text-xs">
+                    <div class="flex items-center gap-2"><span class="font-bold text-slate-200" x-text="trend.name"></span><span class="text-slate-500" x-text="trend.period + ' • ' + trend.total + ' opiniones'"></span></div>
+                    <div class="flex gap-3 font-semibold text-[11px]"><span class="text-emerald-400" x-text="'Alta: ' + trend.raw.alta"></span><span class="text-cyan-300" x-text="'Adecuada: ' + trend.raw.adecuada"></span><span class="text-rose-400" x-text="'Baja: ' + trend.raw.baja"></span></div>
+                  </div>
+                  <div class="h-6 w-full rounded-lg bg-slate-800/60 overflow-hidden flex shadow-inner border border-slate-700/30">
+                    <template x-if="trend.raw.alta > 0"><div :style="'width: ' + trend.altaPercent + '%'" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full flex items-center justify-center text-[10px] text-emerald-950 font-black transition-all" :title="'Alta: ' + trend.altaPercent + '%'" x-text="trend.altaPercent + '%'"></div></template>
+                    <template x-if="trend.raw.adecuada > 0"><div :style="'width: ' + trend.adecuadaPercent + '%'" class="bg-gradient-to-r from-cyan-400 to-sky-300 h-full flex items-center justify-center text-[10px] text-slate-950 font-black transition-all" :title="'Adecuada: ' + trend.adecuadaPercent + '%'" x-text="trend.adecuadaPercent + '%'"></div></template>
+                    <template x-if="trend.raw.baja > 0"><div :style="'width: ' + trend.bajaPercent + '%'" class="bg-gradient-to-r from-rose-500 to-red-400 h-full flex items-center justify-center text-[10px] text-rose-950 font-black transition-all" :title="'Baja: ' + trend.bajaPercent + '%'" x-text="trend.bajaPercent + '%'"></div></template>
+                  </div>
+                </div>
+              </template>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-800/60 grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="flex items-center justify-center gap-1.5 text-slate-400"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 block"></span>Alta / Ritmo intenso</div>
+              <div class="flex items-center justify-center gap-1.5 text-slate-400"><span class="w-2.5 h-2.5 rounded-full bg-cyan-300 block"></span>Adecuada / Esperado</div>
+              <div class="flex items-center justify-center gap-1.5 text-slate-400"><span class="w-2.5 h-2.5 rounded-full bg-rose-400 block"></span>Baja / Con retrasos</div>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-base font-bold text-slate-100">Frenos Detectados</h3>
+              <p class="text-xs text-slate-400 mb-4">Factores que aparecen con más frecuencia en el pulso del equipo.</p>
+              <div class="space-y-3.5">
+                <template x-for="(f, idx) in stats.factors.slice(0, 7)" :key="idx">
+                  <div class="space-y-1">
+                    <div class="flex justify-between text-xs"><span class="font-medium text-slate-300 truncate max-w-[170px]" x-text="f.name"></span><span class="text-slate-400 font-bold" x-text="f.count + ' menciones (' + f.percentage + '%)'"></span></div>
+                    <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden"><div :style="'width: ' + f.percentage + '%'" :class="idx === 0 ? 'bg-cyan-400' : (idx === 1 ? 'bg-sky-500/85' : (idx === 2 ? 'bg-indigo-500/70' : 'bg-slate-600'))" class="h-full rounded-full"></div></div>
+                  </div>
+                </template>
+              </div>
+            </div>
+            <div class="mt-5 pt-4 border-t border-slate-800/60"><button @click="activeTab = 'analytics'" class="w-full py-2 bg-slate-800 hover:bg-slate-700/80 text-xs font-semibold text-slate-200 rounded-lg transition-colors flex items-center justify-center gap-2">Análisis de Impedimentos<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></button></div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/40 border border-slate-800/80 rounded-xl p-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <div><h3 class="text-base font-bold text-slate-100">Declaraciones Clave Anonimizadas</h3><p class="text-xs text-slate-400">Comentarios destacados sin trazabilidad de identidad</p></div>
+            <button @click="activeTab = 'responses'; searchTerm = ''; fillFilteredResponses();" class="text-xs text-cyan-300 hover:text-cyan-200 font-medium flex items-center gap-1">Ver todas las opiniones <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg></button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <template x-for="comment in keyComments.slice(0, 4)" :key="comment.sprintId + '-' + comment.id">
+              <div class="bg-slate-900/80 border border-slate-800/80 rounded-xl p-4 flex flex-col justify-between hover:border-cyan-500/30 transition-all">
+                <div>
+                  <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-cyan-300 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20" x-text="comment.sprintName"></span><span class="text-[10px] text-slate-500">Colaborador Anónimo</span></div>
+                  <p class="text-xs text-slate-300 italic line-clamp-4" x-text="'“' + comment.observation + '”'"></p>
+                </div>
+                <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-500"><span x-text="comment.factors.slice(0, 2).join(' / ')"></span><span :class="comment.speed === 'Alta' ? 'text-emerald-400' : (comment.speed === 'Adecuada' ? 'text-cyan-300' : 'text-rose-400')" class="font-semibold" x-text="'Vel: ' + comment.speed"></span></div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
+
+      <div x-show="activeTab === 'responses'" class="space-y-6" x-transition>
+        <div class="bg-slate-900 border border-slate-800/80 rounded-xl p-4 flex flex-col md:flex-row gap-4 items-center justify-between">
+          <div class="relative w-full md:w-96">
+            <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4.5 h-4.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" width="18" height="18"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+            <input type="text" placeholder="Buscar por impedimento, sprint u observación..." x-model="searchTerm" @input="fillFilteredResponses()" class="w-full bg-slate-950 border border-cyan-950/40 rounded-lg pl-10 pr-4 py-2 text-xs focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-colors placeholder:text-slate-500 text-slate-200" />
+          </div>
+
+          <div class="flex flex-wrap gap-3 items-center w-full md:w-auto">
+            <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800"><span class="text-xs font-semibold text-slate-400">Velocidad:</span><select x-model="selectedSpeedFilter" @change="fillFilteredResponses()" class="bg-transparent border-none text-xs focus:outline-none text-slate-300 font-semibold cursor-pointer"><option value="all" class="bg-slate-950 text-slate-300">Todas</option><option value="alta" class="bg-slate-950 text-emerald-400">Alta</option><option value="adecuada" class="bg-slate-950 text-cyan-300">Adecuada</option><option value="baja" class="bg-slate-950 text-rose-400">Baja</option></select></div>
+            <div class="flex items-center gap-2 bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800"><span class="text-xs font-semibold text-slate-400">Sentimiento:</span><select x-model="selectedSentimentFilter" @change="fillFilteredResponses()" class="bg-transparent border-none text-xs focus:outline-none text-slate-300 font-semibold cursor-pointer"><option value="all" class="bg-slate-950 text-slate-300">Todos</option><option value="positive" class="bg-slate-950 text-emerald-400">Favorable</option><option value="negative" class="bg-slate-950 text-rose-400">Crítico</option><option value="neutral" class="bg-slate-950 text-amber-400">Neutral</option><option value="none" class="bg-slate-950 text-slate-400">Sin observación</option></select></div>
+            <div class="text-xs text-slate-500 font-semibold">Mostrando <span x-text="filteredResponses.length"></span> de <span x-text="stats.total"></span> respuestas anónimas</div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800/80 rounded-xl p-5 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div><div class="flex items-center gap-2"><span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span></span><h4 class="text-xs font-bold text-cyan-300 uppercase tracking-wider">Análisis de Sentimiento de Comentarios</h4></div><p class="text-[11px] text-slate-400">Clasificación ligera basada únicamente en el texto de observaciones escritas.</p></div>
+            <div class="text-right"><span class="text-[10px] text-slate-400 bg-slate-950 px-2.5 py-1 rounded border border-slate-800 font-bold uppercase inline-block">Evaluados: <span class="text-cyan-300 font-black" x-text="commentStats.totalWithComments"></span> comentarios</span></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-slate-950 border border-slate-800/60 rounded-xl p-3.5 space-y-2 flex flex-col justify-between"><div><div class="flex items-center justify-between"><span class="text-xs font-semibold text-slate-400 flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 block"></span>Favorable</span><span class="text-xs font-black text-emerald-400" x-text="commentStats.posPercent + '%'"></span></div><div class="mt-2 flex items-baseline gap-1"><span class="text-2xl font-black text-slate-100" x-text="commentStats.positive"></span><span class="text-[10px] text-slate-500 font-bold uppercase">Respuestas</span></div></div><div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden mt-1"><div :style="'width: ' + commentStats.posPercent + '%'" class="h-full bg-gradient-to-r from-emerald-500 to-teal-400 transition-all duration-500"></div></div></div>
+            <div class="bg-slate-950 border border-slate-800/60 rounded-xl p-3.5 space-y-2 flex flex-col justify-between"><div><div class="flex items-center justify-between"><span class="text-xs font-semibold text-slate-400 flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 block"></span>Crítico / Desafíos</span><span class="text-xs font-black text-rose-400" x-text="commentStats.negPercent + '%'"></span></div><div class="mt-2 flex items-baseline gap-1"><span class="text-2xl font-black text-slate-100" x-text="commentStats.negative"></span><span class="text-[10px] text-slate-500 font-bold uppercase">Respuestas</span></div></div><div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden mt-1"><div :style="'width: ' + commentStats.negPercent + '%'" class="h-full bg-gradient-to-r from-rose-500 to-red-400 transition-all duration-500"></div></div></div>
+            <div class="bg-slate-950 border border-slate-800/60 rounded-xl p-3.5 space-y-2 flex flex-col justify-between"><div><div class="flex items-center justify-between"><span class="text-xs font-semibold text-slate-400 flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 block"></span>Neutral / Informativo</span><span class="text-xs font-black text-amber-400" x-text="commentStats.neuPercent + '%'"></span></div><div class="mt-2 flex items-baseline gap-1"><span class="text-2xl font-black text-slate-100" x-text="commentStats.neutral"></span><span class="text-[10px] text-slate-500 font-bold uppercase">Respuestas</span></div></div><div class="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden mt-1"><div :style="'width: ' + commentStats.neuPercent + '%'" class="h-full bg-gradient-to-r from-amber-500 to-cyan-400 transition-all duration-500"></div></div></div>
+          </div>
+
+          <div class="p-3 bg-slate-950 rounded-lg border border-slate-800 text-xs text-slate-400 flex items-center gap-2.5">
+            <div class="p-1.5 bg-cyan-500/10 rounded-lg text-cyan-300 shrink-0"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+            <div>Se excluyeron <strong class="text-slate-300" x-text="commentStats.none"></strong> reportes sin observación efectiva. <template x-if="commentStats.negative > commentStats.positive"><span class="text-rose-300">La lectura cualitativa concentra alertas en participación, retrasos de pipeline y claridad operacional.</span></template><template x-if="commentStats.positive >= commentStats.negative && commentStats.totalWithComments > 0"><span class="text-emerald-300">La lectura cualitativa muestra una percepción mayormente favorable: buen ritmo, manejo del tiempo y avance en entregables.</span></template></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl overflow-hidden lg:col-span-2">
+            <div class="border-b border-slate-800/80 px-4 py-3 bg-slate-900/40 flex items-center justify-between"><h3 class="text-xs font-bold text-slate-300 uppercase tracking-wider">Historial de Reportes de Exploradores</h3><span class="text-[10px] text-slate-500">Selecciona un reporte para profundizar</span></div>
+            <div class="divide-y divide-slate-800/80 max-h-[600px] overflow-y-auto">
+              <div x-show="filteredResponses.length === 0" class="py-12 text-center text-slate-500 text-xs">No se encontraron reportes con los criterios de búsqueda establecidos.</div>
+              <template x-for="(r, index) in filteredResponses" :key="r.sprintId + '-' + index">
+                <div @click="selectedResponse = r" :class="selectedResponse && selectedResponse.id === r.id && selectedResponse.sprintId === r.sprintId ? 'bg-cyan-950/20 border-l-4 border-cyan-400' : 'border-l-4 border-transparent'" class="p-4 hover:bg-slate-800/40 cursor-pointer transition-all flex flex-col md:flex-row md:items-center justify-between gap-3">
+                  <div class="space-y-1">
+                    <div class="flex items-center gap-2"><span class="text-xs font-bold text-slate-200" x-text="r.anonymousName"></span><template x-if="r.sentiment === 'positive'"><span class="text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded font-bold uppercase">Favorable</span></template><template x-if="r.sentiment === 'negative'"><span class="text-[9px] bg-rose-500/10 text-rose-400 border border-rose-500/20 px-1.5 py-0.5 rounded font-bold uppercase">Crítico</span></template><template x-if="r.sentiment === 'neutral'"><span class="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-1.5 py-0.5 rounded font-bold uppercase">Neutral</span></template><template x-if="r.sentiment === 'none'"><span class="text-[9px] bg-slate-800/60 text-slate-500 border border-slate-800 px-1.5 py-0.5 rounded font-bold uppercase">Sin Observación</span></template></div>
+                    <div class="flex flex-wrap gap-1.5 pt-1"><template x-for="f in r.factors" :key="f"><span class="text-[9px] bg-slate-800/80 text-slate-400 px-1.5 py-0.5 rounded border border-slate-700/50" x-text="f"></span></template></div>
+                    <template x-if="r.observation"><p class="text-xs text-slate-400 mt-1 line-clamp-1 italic" x-text="'“' + r.observation + '”'"></p></template>
+                  </div>
+                  <div class="flex items-center justify-between md:justify-end gap-3 shrink-0"><div class="text-right"><span class="text-[10px] font-bold text-slate-500 block" x-text="r.sprintName"></span><span class="text-[9px] text-slate-600 block" x-text="r.period"></span></div><span :class="r.speed === 'Alta' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : (r.speed === 'Adecuada' ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20')" class="text-[10px] font-bold px-2.5 py-1 rounded-full text-center min-w-[75px]" x-text="r.speed"></span></div>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800/80 rounded-xl p-5 h-fit sticky top-28">
+            <div x-show="selectedResponse !== null" class="space-y-4">
+              <div class="flex justify-between items-start"><div><span class="text-[10px] font-bold text-cyan-300 uppercase tracking-widest block bg-cyan-950/50 border border-cyan-500/20 px-2 py-0.5 rounded w-fit" x-text="selectedResponse ? selectedResponse.sprintName : ''"></span><h3 class="text-sm font-bold text-slate-100 mt-2" x-text="selectedResponse ? selectedResponse.anonymousName : ''"></h3><p class="text-xs text-slate-500 italic">Identidad de origen anonimizada de forma segura</p></div><span :class="selectedResponse && selectedResponse.speed === 'Alta' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : (selectedResponse && selectedResponse.speed === 'Adecuada' ? 'bg-cyan-500/10 text-cyan-300 border border-cyan-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20')" class="text-xs font-bold px-3 py-1 rounded-full" x-text="selectedResponse ? 'Ritmo: ' + selectedResponse.speed : ''"></span></div>
+              <div class="border-t border-slate-800/80 pt-4 space-y-3"><div><span class="text-xs font-bold text-slate-400 block mb-1">Impedimentos Reportados:</span><div class="flex flex-wrap gap-1.5"><template x-if="selectedResponse"><template x-for="f in selectedResponse.factors" :key="f"><span class="text-[10px] bg-slate-950 text-slate-300 px-2.5 py-1 rounded border border-slate-800 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-cyan-300"></span><span x-text="f"></span></span></template></template></div></div><div class="pt-2"><span class="text-xs font-bold text-slate-400 block mb-1">Cualitativo / Observación:</span><div class="bg-slate-950 border border-slate-800 rounded-lg p-3"><template x-if="selectedResponse && selectedResponse.observation && !isEmptyComment(selectedResponse.observation)"><p class="text-xs text-slate-300 leading-relaxed italic" x-text="'“' + selectedResponse.observation + '”'"></p></template><template x-if="selectedResponse && (!selectedResponse.observation || isEmptyComment(selectedResponse.observation))"><p class="text-xs text-slate-600 italic">No se registraron observaciones cualitativas efectivas en esta respuesta.</p></template></div></div></div>
+            </div>
+            <div x-show="selectedResponse === null" class="py-24 text-center text-slate-500 text-xs flex flex-col items-center justify-center gap-3"><svg class="w-8 h-8 text-slate-600 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg><span>Haz clic sobre un reporte anónimo en la lista para desplegar su análisis cualitativo completo.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div x-show="activeTab === 'analytics'" class="space-y-6" x-transition>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-6">
+            <h3 class="text-base font-bold text-slate-100 mb-2">Diagnóstico de Impedimentos para Exploradores</h3>
+            <p class="text-xs text-slate-400 mb-6">Lectura táctica consolidada de los tres sprints cargados.</p>
+            <div class="space-y-4">
+              <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2"><div class="flex items-center justify-between"><span class="text-xs font-bold text-slate-200">Curva de aprendizaje y movilidad del equipo</span><span class="text-xs text-cyan-300 font-bold">Frecuencia alta</span></div><p class="text-xs text-slate-400 leading-relaxed">La curva de aprendizaje y el movimiento de personas clave aparecen como los factores más reiterados. Esto sugiere necesidad de transferencia de contexto, acuerdos de trabajo y acompañamiento más visible cuando entran o rotan integrantes.</p></div>
+              <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2"><div class="flex items-center justify-between"><span class="text-xs font-bold text-slate-200">Ausencias y participación en ceremonias</span><span class="text-xs text-amber-400 font-bold">Relevante</span></div><p class="text-xs text-slate-400 leading-relaxed">Las ausencias se repiten en los sprints 51 y 52. En lo cualitativo también aparece una alerta sobre baja participación en algunas sesiones, por lo que conviene revisar dinámica de conversación y ownership por historia.</p></div>
+              <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2"><div class="flex items-center justify-between"><span class="text-xs font-bold text-slate-200">Dependencias, pipelines y despliegues</span><span class="text-xs text-rose-400 font-bold">Punto de control</span></div><p class="text-xs text-slate-400 leading-relaxed">Aunque la percepción de velocidad es mayormente adecuada, se observan dependencias externas y retrasos técnicos relacionados con pipelines, permisos y despliegues. Es un foco para reducir fricción operativa.</p></div>
+            </div>
+          </div>
+
+          <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-6 flex flex-col justify-between">
+            <div>
+              <h3 class="text-base font-bold text-slate-100 mb-2">Recomendaciones para Exploradores</h3>
+              <p class="text-xs text-slate-400 mb-6">Acciones sugeridas para sostener ritmo sin perder claridad ni calidad.</p>
+              <div class="space-y-4">
+                <div class="flex gap-3"><div class="h-6 w-6 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-300 font-bold text-xs shrink-0">1</div><div><h4 class="text-xs font-bold text-slate-200">Balancear habilitadoras con entrega visible</h4><p class="text-xs text-slate-400 mt-0.5">Cuando se separen front/back o tareas habilitadoras, dejar explícito cómo conectan con valor de negocio y qué parte puede cerrarse dentro de la misma iteración.</p></div></div>
+                <div class="flex gap-3"><div class="h-6 w-6 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-300 font-bold text-xs shrink-0">2</div><div><h4 class="text-xs font-bold text-slate-200">Refuerzo de participación y ownership</h4><p class="text-xs text-slate-400 mt-0.5">Promover que cada integrante llegue con avances, bloqueos y decisiones preparadas a las ceremonias, evitando que la conversación dependa de una sola persona.</p></div></div>
+                <div class="flex gap-3"><div class="h-6 w-6 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-300 font-bold text-xs shrink-0">3</div><div><h4 class="text-xs font-bold text-slate-200">Checklist preventivo de despliegues</h4><p class="text-xs text-slate-400 mt-0.5">Antes de cerrar sprint, validar pipelines, permisos, dependencias externas y ambientes de test para prevenir retrasos de certificación y salida a producción.</p></div></div>
+              </div>
+            </div>
+            <div class="mt-8 pt-4 border-t border-slate-800/60 p-4 bg-slate-950 rounded-xl border border-slate-800 flex items-center justify-between"><div class="flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span><span class="text-xs text-slate-400">Seguridad:</span><strong class="text-xs text-emerald-400">Datos Protegidos</strong></div><button @click="selectedIteracion = 'all'; activeTab = 'dashboard'; calculateStats(); calculateTrends();" class="text-xs text-cyan-300 hover:text-cyan-200 font-semibold">Volver al Dashboard</button></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <div x-show="showUploadModal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm" style="display: none;" x-transition>
+      <div @click.away="showUploadModal = false" class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl">
+        <div class="border-b border-slate-800/80 px-6 py-4 bg-slate-950/40 flex items-center justify-between"><div class="flex items-center gap-2"><div class="h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></div><h3 class="text-sm font-bold text-slate-200 uppercase tracking-wider">Cargar Sprint (Anonimizado)</h3></div><button @click="showUploadModal = false" class="text-slate-400 hover:text-slate-200"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg></button></div>
+        <div class="p-6 space-y-4">
+          <div class="bg-cyan-950/30 border border-cyan-500/20 p-3 rounded-lg text-xs text-cyan-200 flex gap-2 items-start"><svg class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg><span>Al cargar un CSV, el sistema procesa los datos operativos y reemplaza cualquier identidad por etiquetas anónimas.</span></div>
+          <div><label class="text-xs font-bold text-slate-400 block mb-1">Identificador del Sprint:</label><input type="text" x-model="newIteracionName" placeholder="Ej. Sprint 54" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-400" /></div>
+          <div><label class="text-xs font-bold text-slate-400 block mb-1">Periodo:</label><input type="text" x-model="newIteracionPeriod" placeholder="Ej. Sprint 54" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-cyan-400" /></div>
+          <div><label class="text-xs font-bold text-slate-400 block mb-1">Archivo de Respuestas (CSV de Excel):</label><div @dragover.prevent="dragOver = true" @dragleave.prevent="dragOver = false" @drop.prevent="handleFileDrop($event)" :class="dragOver ? 'border-cyan-300 bg-cyan-950/10' : 'border-slate-800 bg-slate-950/40 hover:border-slate-700'" class="border-2 border-dashed rounded-xl p-6 text-center transition-all relative cursor-pointer"><input type="file" accept=".csv,.txt" @change="handleFileSelect($event)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" /><div class="space-y-2 flex flex-col items-center"><svg class="w-10 h-10 text-cyan-300/80" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6m-3-3v6m-9 1V4a2 2 0 012-2h6l2 2h6a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2z" /></svg><div class="text-xs"><span class="text-cyan-300 font-bold hover:underline">Haz clic para buscar</span> o arrastra tu archivo aquí</div></div></div></div>
+          <template x-if="uploadedFileName"><div class="p-3 bg-emerald-950/20 border border-emerald-500/20 rounded-lg flex items-center justify-between text-xs"><div class="flex items-center gap-2 text-emerald-300"><svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg><span>Archivo seleccionado: <strong x-text="uploadedFileName"></strong></span></div><button @click="uploadedFileName = ''; rawCSVText = '';" class="text-slate-400 hover:text-slate-200 text-[10px] hover:underline">Remover</button></div></template>
+          <template x-if="uploadError"><div class="p-3 bg-rose-950/40 border border-rose-500/20 text-rose-300 text-xs rounded-lg font-medium" x-text="uploadError"></div></template>
+        </div>
+        <div class="border-t border-slate-800/80 px-6 py-4 bg-slate-950/40 flex justify-end gap-3"><button @click="showUploadModal = false" class="px-4 py-2 text-xs font-semibold text-slate-400 hover:text-slate-200">Cancelar</button><button @click="saveIteracion()" class="px-5 py-2 text-xs font-bold bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-lg transition-colors flex items-center gap-1.5">Procesar de forma Anónima</button></div>
+      </div>
+    </div>
+
+    <footer class="border-t border-slate-900 bg-slate-950 py-6 px-6 mt-auto">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500"><div><span>© 2026 Exploradores Velocity Pulse Tracker - Entorno Privado.</span></div><div class="flex gap-4"><span class="hover:text-slate-400 cursor-pointer">Seguridad</span><span>•</span><span class="hover:text-slate-400 cursor-pointer">Mejora continua</span></div></div>
+    </footer>
+
+  </div>
+</body>
+</html>
